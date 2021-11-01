@@ -3,21 +3,61 @@ import Block from "./Blocks/Block.js";
 import React, { useState } from "react";
 
 function App() {
-  const [valueRow, setValueRow] = useState([
+  const testState = [
     [2, 2, 2, 2],
-    [0, 0, 4, 0],
-    [0, 4, 3, 0],
-    [0, 0, 0, 0],
-  ]);
+    [0, 0, 4, 4],
+    [2, 2, 4, 8],
+    [0, 0, 16, 0],
+  ];
 
-  function moveBlock(row) {
-    for (let i = 1; i < 3; i++) {
-      if (row[i - 1] == 0) {
-        row[i - 1] = row[i];
-        row[i] = 0;
-        console.log(row);
-        moveBlock(row);
-      } else {
+  const [valueRow, setValueRow] = useState(testState);
+
+  function convertColumn() {}
+
+  function moveBlock(row, moveDirection) {
+    if (moveDirection == "L") {
+      for (let i = 0; i < row.length; i++) {
+        if (row[i] == 0) {
+          row.splice(i, 1);
+          moveBlock(row);
+        }
+      }
+    } else {
+      for (let i = row.length - 1; i > -1; i--) {
+        if (row[i] == 0) {
+          row.splice(i, 1);
+          moveBlock(row);
+        }
+      }
+    }
+  }
+
+  function fillBlock(row, moveDirection) {
+    if (moveDirection == "L") {
+      while (row.length != 4) {
+        row.push(0);
+      }
+    } else {
+      while (row.length != 4) {
+        row.unshift(0);
+      }
+    }
+  }
+
+  function addBlock(row, moveDirection) {
+    if (moveDirection == "L") {
+      for (let i = 0; i < row.length - 1; i++) {
+        if (row[i] == row[i + 1]) {
+          row[i] *= 2;
+          row[i + 1] = 0;
+        }
+      }
+    } else {
+      for (let i = row.length - 1; i > -1; i--) {
+        if (row[i] == row[i - 1]) {
+          row[i] *= 2;
+          row[i - 1] = 0;
+        }
       }
     }
   }
@@ -28,23 +68,14 @@ function App() {
         let newValueLeft = [];
 
         valueRow.map((row) => {
-          for (let i = 0; i < row.length - 1; i++) {
-            if (row[i] == row[i + 1]) {
-              row[i] *= 2;
-              row[i + 1] = 0;
-              break;
-            }
-          }
-
-          // moveBlock(row);
-
+          addBlock(row, "L");
+          moveBlock(row, "L");
+          fillBlock(row, "L");
           newValueLeft.push(row);
         });
-
-        console.log(newValueLeft);
         setValueRow(newValueLeft);
-
         break;
+
       case 38:
         alert("up");
         setValueRow(valueRow + 1);
@@ -53,23 +84,14 @@ function App() {
         let newValueRight = [];
 
         valueRow.map((row) => {
-          row.sort(function (a, b) {
-            return a - b;
-          });
-          for (let i = 0; i < row.length - 1; i++) {
-            if (row[i] == row[i + 1]) {
-              row[i] = 0;
-              row[i + 1] *= 2;
-            }
-          }
+          addBlock(row, "R");
+          moveBlock(row, "R");
+          fillBlock(row, "R");
           newValueRight.push(row);
-          console.log(row);
         });
-
-        console.log(newValueRight);
         setValueRow(newValueRight);
-
         break;
+
       case 40:
         alert("down");
         setValueRow(valueRow + 1);
@@ -107,7 +129,7 @@ function App() {
             </div>
           </div>
           <div class="buttonGroup">
-            <button>Restart</button>
+            <button onClick={() => setValueRow(testState)}>Restart</button>
             <button>Pause</button>
           </div>
         </div>
