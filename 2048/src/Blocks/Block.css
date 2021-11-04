@@ -1,5 +1,42 @@
 .block {
-  background-color: blueviolet;
+  color: #fcf6f5ff;
+  background: #89abe3ff;
+  width: 90px;
+  height: 90px;
+  line-height: 2.9;
+  font-size: 32px;
   text-align: center;
   vertical-align: middle;
+  border-radius: 18px;
+}
+
+.animation {
+  color: #89abe3ff;
+  width: 90px;
+  height: 90px;
+  line-height: 2.9;
+  font-size: 32px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: red;
+  animation: myfirst 5s linear infinite alternate;
+  border-radius: 18px;
+}
+
+@keyframes myfirst {
+  0% {
+    background-color: rgb(0, 255, 191);
+  }
+  25% {
+    background-color: rgb(255, 4, 4);
+  }
+  50% {
+    background-color: rgb(4, 0, 255);
+  }
+  75% {
+    background-color: rgb(9, 255, 0);
+  }
+  100% {
+    background-color: rgb(0, 255, 191);
+  }
 }

@@ -3,7 +3,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background: #89abe3ff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,8 @@
 }
 
 .backLayer {
-  color: #61dafb;
+  font-style: oblique;
+  font-weight: 600;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,20 +23,21 @@
   width: 600px;
   height: 600px;
   max-height: 600px;
-  background-color: azure;
+  background-color: #fcf6f5ff;
+  border-radius: 20px;
 }
 
 .frontLayer {
   margin-top: 40px;
   width: 450px;
   height: 450px;
-  background-color: green;
+  background: #fcf6f5ff;
 }
 
 .blockRow {
   display: flex;
   width: 100%;
-  padding-top: 65px;
+  padding-top: 18px;
   justify-content: space-around;
 }
 
